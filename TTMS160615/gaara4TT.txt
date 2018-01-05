@@ -1,0 +1,54 @@
+6.15  
+play_UI界面每次删改后未输出{
+	1.showlistbypage函数的参数问题,暂时使用需要输出的节点的数目
+	2.playUI的输出函数不符要求	
+	3.通过ID查询暂时用mm写的函数
+
+}
+
+输出了一个空链表 ?(未解决)
+
+play_UI界面演出计划函数返回值问题,功能尚未实现(解决)
+
+模糊查询暂未写(已解决)
+
+6.16
+头插法创建链表及playshowlist 未使用;
+
+UI层输出未初始化(无影响?)
+
+为main_menu添加了common.c
+
+对照演出厅输出编写了剧目输出的分页输出
+
+6.17
+对PLAY_UI分页器的初始化作了修改{
+1.错误在showlistbypage的for循环中
+2.修改了play_UI_add中结束日期的scanf错误
+}
+6.18
+前几日bug还未解决{
+	尝试1:{
+	在play输出studio测试是否fetchall函数的问题
+	结果:同样错误
+	result:怀疑paging未分配内存出错
+	Q:结构体声明时已分配内存
+	尝试2:去掉showlistbypage,采用与studio完全相同的流程{
+		1.有进展,但仍旧停止运行;
+		2.修改了showlistbypage的参数
+	问题解决(%d.......)
+	}
+}
+6.19
+
+mm的UI层{
+	1.isfrist,islast函数修改;
+	2.Usrname应该是字符串;
+	}
+6.20
+
+schedule.c{
+	使用了ticket.c中的函数(Ticket_Srv_StatRevBySchID)统计了
+	某个演出计划;
+	}
+sale_ui fetchbyplay
