@@ -1,0 +1,447 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAXSIZE 30
+#define INFINITY 9999 
+#define MAX 15 // 车次号 
+//城市信息
+typedef struct {
+	int ID;//城市序号 
+	char name[20];//城市名字 
+}CityNode;
+//时刻表信息 
+typedef struct {
+	char number[MAX];//车次号 
+	int startCityID;//起始城市
+	int endCityID;//到达城市
+	char StartTime[80];//起始时间
+	char EndTime[80];//到达时间
+	int CostTime;//消耗时间单位是秒 
+}ArcsNode;
+//图的信息 
+typedef struct {
+	int vex[MAXSIZE];//城市的ID 
+    int arcs[MAXSIZE][MAXSIZE];//边的集合，权值是花费的钱 
+	int vexnum;//顶点的个数 
+	int arcsnum; //边的个数 
+}AdjMatrix; 
+
+typedef struct {
+	int adjvex;
+	int lowcost;
+}closedge;
+
+void First(AdjMatrix *G);//第一个界面，选择需要进行的操作 
+void Creat(AdjMatrix *G);//创建图以及将内容写入文件 
+void Modify(AdjMatrix *G);//以管理员的身份登入并进行增加或者删除操作 
+void Query(AdjMatrix G);//查询 
+void AddCity(AdjMatrix *G);//增加城市以及路线 
+void ReduceCity(AdjMatrix *G);//减少城市以及路线
+void AddRoute(AdjMatrix *G);//增加路线 
+void ReduceRoute(AdjMatrix *G);//减少路线
+void Prim(AdjMatrix G);// 计算费用最少 
+void Dijkstra(AdjMatrix G);//中转站最少 
+void Read(AdjMatrix *G);//读取文件中的图的信息 
+void Write(AdjMatrix *G);//将G写入文件以便下次使用 
+int index(AdjMatrix G,int D[],int C[]);
+ 
+void First(AdjMatrix *G){
+	int logo; 
+	printf("\n==================================================================\n");
+	printf("  ********************* 全国交通咨询系统 **********************\n");
+	printf("[1]：首次使用\n[2]：管理员\n[3]：查询\n[4]：退出\n");
+	printf("请输入你的选择："); 
+	scanf("%d",&logo);
+	switch(logo){
+		case 1:Creat(G);break;
+		case 2:Read(G);Modify(G);break;
+		case 3:Read(G);Query(*G);break;
+		case 4:Write(G);exit(0);break;
+	    default:printf("请输入正确的提示信息！"); 
+	} 
+}
+
+void Creat(AdjMatrix *G){
+	int i,j;
+	int vex1,vex2,money;
+	CityNode city;
+	ArcsNode time;
+	FILE *fp;//指向城市信息的文件指针 
+	FILE *fs;//指向时刻表的文件指针 
+	printf("请输入城市个数和所有路线的个数：\n");
+	scanf("%d%d",&G->vexnum,&G->arcsnum);
+	for(i=0;i<G->vexnum;i++){
+		for (j=0;j<G->vexnum;j++)
+		    G->arcs[i][j] = INFINITY;	
+	}
+    fp = fopen("城市信息.txt","w");
+	for(i=0;i<G->vexnum;i++){ 
+	   printf("ID.");
+       scanf("%d%s",&city.ID,city.name);
+       G->vex[i] = city.ID; 
+	   fprintf(fp,"%d            %s\n",city.ID,city.name);
+	}
+    fclose(fp);
+    printf("请输入   起始城市ID  终点城市的ID  花销(元)  车次  起始时间  到达时间  途径时间(分钟)：\n");
+    fs = fopen("时刻表.txt","w");
+    for(i=0;i<G->arcsnum;i++){
+    	printf("第%d条路线：",i+1);
+    	fflush(stdin);
+		scanf("%d%d%d%s%s%s%d",&vex1,&vex2,&money,time.number,time.StartTime,time.EndTime,&time.CostTime);
+		G->arcs[vex1-1][vex2-1] = money;
+		time.startCityID = vex1;
+		time.endCityID = vex2;
+		fprintf(fs,"%s       %-1d        %-1d        %s        %s        %-10d\n",time.number,time.startCityID,time.endCityID,time.StartTime,time.EndTime,time.CostTime);
+	}
+	fclose(fs);
+//	for (i=0;i<G->vexnum;i++)
+//	  for (j=0;j<G->vexnum;j++)
+//	     printf("%d----",G->arcs[i][j]);
+}
+
+void Modify(AdjMatrix *G){
+	int logo;
+	printf("\n==================================================================\n");
+	printf("[1]：增加城市\n[2]：删除城市\n[3]：增加路线\n[4]：删除路线\n"); 
+	printf("请选择你要进行的操作：");
+	scanf ("%d",&logo);
+	switch(logo){
+		case 1:AddCity(G);break;
+		case 2:ReduceCity(G);break;
+		case 3:AddRoute(G);break;
+		case 4:ReduceRoute(G);break;
+		default :printf("请输入正确的提示信息！");
+	}
+}
+
+void AddCity(AdjMatrix *G){
+	int sc,ec;
+	int nc;
+	int i,j;
+	int number;
+	int vex1,vex2;
+	int money;
+	FILE *fp,*fs;
+	ArcsNode time;
+	CityNode city;
+	printf("\n==================================================================\n");
+	printf("请输入你要添加的城市的ID和名字：");
+    fflush(stdin);
+	scanf("%d%s",&city.ID,city.name); 
+	printf("请输入你要添加几条新路线：");
+	scanf("%d",&number);
+	G->vexnum++;
+	G->vex[G->vexnum-1] = city.ID;
+	G->arcsnum+=number;
+	for (i=0;i<G->vexnum;i++){
+	   G->arcs[i][city.ID-1] = INFINITY;
+	   G->arcs[city.ID-1][i] = INFINITY;
+    }
+	fp = fopen("城市信息.txt","at");
+	fprintf(fp,"%d             %s",city.ID,city.name);
+	fclose(fp);
+	fs = fopen("时刻表.txt","at");
+	for (i=0;i<number;i++){
+		printf("请输入新增城市与原有城市的路线，包括：   起始城市ID  终点城市的ID  花销(元)  车次  起始时间  到达时间  途径时间(分钟)：\n");
+		fflush(stdin);
+		scanf("%d%d%d%s%s%s%d",&vex1,&vex2,&money,time.number,time.StartTime,time.EndTime,&time.CostTime);
+		G->arcs[vex1-1][vex2-1] = money;
+        fprintf(fs,"%s       %-1d        %-1d        %s        %s        %-10d\n",time.number,vex1,vex2,time.StartTime,time.EndTime,time.CostTime);		    
+    }
+//  for (i=0;i<G->vexnum;i++)
+//	for (j=0;j<G->vexnum;j++)
+//	    printf("%d----",G->arcs[i][j]);
+}
+
+void ReduceCity(AdjMatrix *G){
+	int id;
+	int i,j;
+	int num = 0;
+	CityNode city[MAXSIZE];
+	ArcsNode route[MAXSIZE];
+	FILE *fp,*fn;
+	printf("请输入你要删除的城市的ID：");
+	scanf("%d",&id);
+	for (i=0;i<G->vexnum;i++){
+	    G->arcs[id-1][i] = INFINITY;
+	    G->arcs[i][id-1] = INFINITY;
+	}
+	fp = fopen("城市信息.txt","rt+");
+	for (i=0;i<G->vexnum;i++){
+		fscanf(fp,"%d %s",&city[i].ID,city[i].name);
+	}
+	fclose(fp);
+	fp = fopen("城市信息.txt","wt");
+	for (i=0;i<G->vexnum;i++){
+	    if (city[i].ID!=id)
+		   fprintf(fp,"%d           %s\n",city[i].ID,city[i].name);
+	}
+	fclose(fp);
+    fn = fopen("时刻表.txt","rt+");
+	for (i=0;i<G->arcsnum;i++){
+	    fscanf (fn,"%s%d%d%s%s%d",route[i].number,&route[i].startCityID,&route[i].endCityID,route[i].StartTime,route[i].EndTime,&route[i].CostTime);
+    }
+	fclose(fn);
+//	 for (j=0;j<10;j++)
+//	 	 printf("%s   %d   %d\n",route[j].number,route[j].startCityID,route[j].endCityID);	
+// 	 printf("%d",id);
+	 fn = fopen("时刻表.txt","wt");
+	 for(i=0;i<G->arcsnum;i++){
+	 	if ((route[i].startCityID!=id)&&(route[i].endCityID!=id)){
+             fprintf(fn,"%s       %-1d        %-1d        %s        %s        %-10d\n",route[i].number,route[i].startCityID,route[i].endCityID,route[i].StartTime,route[i].EndTime,route[i].CostTime);		    
+     	     num++; 
+		} 
+     }
+	 fclose(fn);
+     for (i=id-1;i<G->vexnum;i++){
+         	for (j=0;j<G->vexnum;j++)
+		       G->arcs[i][j] = G->arcs[i+1][j];
+		
+	 }
+	 for (i=id-1;i<G->vexnum;i++){
+	 		for(j=0;j<G->vexnum-1;j++)
+	 		   G->arcs[j][i] = G->arcs[j][i+1];
+		 
+	}
+	for (i=id-1;i<G->vexnum-1;i++)
+	     G->vex[i] = G->vex[i+1];
+	G->vexnum--; 
+	G->arcsnum = num;
+//	printf("a:%d     v:%d\n",G->arcsnum,G->vexnum);
+//	for (i=0;i<G->vexnum;i++)
+//	for (j=0;j<G->vexnum;j++)
+//	    printf("%d----",G->arcs[i][j]);
+	
+}
+void AddRoute(AdjMatrix *G){
+    int vex1,vex2;
+	ArcsNode route;
+	int money;
+	FILE *fp;
+	int i,j;
+	printf("请输入你要添加的路线的起始城市ID和到达城市的ID：");
+	scanf ("%d%d",&vex1,&vex2);
+	printf("请输入花销(元)  车次  起始时间  到达时间  途径时间(分钟)：\n");
+	scanf ("%d%s%s%s%d",&money,route.number,route.StartTime,route.EndTime,&route.CostTime);
+	G->arcsnum++;
+	G->arcs[vex1-1][vex2-1] = money; 
+	fp = fopen("时刻表.txt","at");
+    fprintf(fp,"%s       %-1d        %-1d        %s        %s        %-10d\n",route.number,vex1,vex2,route.StartTime,route.EndTime,route.CostTime);		    
+    fclose(fp);
+//    for (i=0;i<G->vexnum;i++)
+//	   for (j=0;j<G->vexnum;j++)
+//	       printf("%d----",G->arcs[i][j]);
+}
+
+void ReduceRoute(AdjMatrix *G){
+     int i,j;
+     int vex1,vex2;
+     FILE *fp;
+     ArcsNode route[MAXSIZE];
+     printf("请输入你要删除路线的起始城市ID和到达城市ID：");
+	 scanf ("%d%d",&vex1,&vex2);
+	 G->arcs[vex1-1][vex2-1] = INFINITY;
+	 fp = fopen("时刻表.txt","rt+");
+	 for (i=0;i<G->arcsnum;i++){
+	    fscanf (fp,"%s%d%d%s%s%d",route[i].number,&route[i].startCityID,&route[i].endCityID,route[i].StartTime,route[i].EndTime,&route[i].CostTime);
+     }
+	 fclose(fp);
+	 for (j=0;j<G->arcsnum;j++)
+	    printf("%s   %d   %d\n",route[j].number,route[j].startCityID,route[j].endCityID);	
+	 fp = fopen("时刻表.txt","wt");
+	 for(i=0;i<G->arcsnum;i++){
+	 	if ((route[i].startCityID!=vex1)&&(route[i].endCityID!=vex2))
+             fprintf(fp,"%s       %-1d        %-1d        %s        %s        %-10d\n",route[i].number,route[i].startCityID,route[i].endCityID,route[i].StartTime,route[i].EndTime,route[i].CostTime);		    
+	 }
+	 fclose(fp); 
+	 G->arcsnum--;
+//	 for (i=0;i<G->vexnum;i++)
+//	   for (j=0;j<G->vexnum;j++)
+//	     printf("%d----",G->arcs[i][j]);
+}
+
+void Query(AdjMatrix G){
+	int logo;
+	int i,j;
+	FILE *fp;
+	CityNode city[MAXSIZE];
+	fp = fopen("城市信息.txt","r");
+	for (i=0;i<G.vexnum;i++){
+		fscanf(fp,"%d%s",&city[i].ID,city[i].name);
+	}
+	fclose(fp);
+	printf("所有城市对应的ID如下：\n");
+	printf("ID      NAME\n");
+	for(i=0;i<G.vexnum;i++){
+		printf("%d       %s\n",city[i].ID,city[i].name);
+	}
+	printf("选择一条你的决策,[1]:中转站最少，[2]：费用最低！\n");      	
+	scanf("%d",&logo);
+	switch(logo){
+		case 1:Prim(G);break;//利用Prim算法 
+		case 2:Dijkstra(G);break;//利用Dijkstra算法 
+		default :printf("请输入正确的提示符！"); 
+	} 
+}
+
+void Prim(AdjMatrix G){
+	int sc,ec;
+	closedge TreeEdg[MAXSIZE];
+	int i,j,k,m,h;
+	int min;
+	int money = 0;
+	//printf("%d    %d\n",G.arcsnum,G.vexnum); 
+	//for(i=0;i<G.vexnum;i++)
+	//   printf("%d    ",G.vex[i]); 
+	printf("请输入你要查询的俩个城市的ID：");
+	scanf ("%d%d",&sc,&ec);
+	printf("从城市%d开始到所有地方的最短路径为：\n",G.vex[sc-1]);
+	sc-=1; 
+	ec-=1;
+	printf("路线为(使用城市的ID表示)：");
+	TreeEdg[sc].lowcost=0;
+	for (i=0;i<G.vexnum;i++)
+		if (i!=sc){
+			TreeEdg[i].adjvex = sc;
+			TreeEdg[i].lowcost = G.arcs[sc][i];
+		}//对除了起始点的所有顶点初始化对应的数组 
+	printf("%d-",G.vex[sc]);
+	for (j=0;j<G.vexnum;j++){
+		min = INFINITY;
+		for(k=0;k<G.vexnum;k++){
+			if (TreeEdg[k].lowcost!=0&&TreeEdg[k].adjvex<min){
+		        m = k;
+				min = TreeEdg[k].lowcost;		
+			} 
+		}//选择权值最小的边
+		printf("%d-",G.vex[m]); 
+		money+=min; 
+		TreeEdg[m].lowcost = 0;
+		for (h=0;h<G.vexnum;h++)
+			if (h!=m&&G.arcs[m][h]<TreeEdg[h].lowcost){
+				TreeEdg[h].lowcost = G.arcs[m][h];
+				TreeEdg[h].adjvex = m;
+			}//如果有权值更小的边则替换原有信息 
+		money+=min; 
+	}
+	printf("最低花销为：%d",money);
+}
+void Dijkstra(AdjMatrix G){
+	int i,j,k,t=1;
+	int vex1,vex2;
+	int mindist;
+	int temp;
+	int dist[MAXSIZE],path[MAXSIZE],collected[MAXSIZE];
+	int logo;
+	int New[MAXSIZE];
+	FILE *fp;
+	CityNode city[MAXSIZE];
+	fp = fopen("城市信息.txt","r");
+	for (i=0;i<G.vexnum;i++){
+		fscanf(fp,"%d%s",&city[i].ID,city[i].name);
+	}
+	fclose(fp);  
+	printf("请输入你要查询的起点城市ID和终点城市ID：");
+    scanf ("%d%d",&vex1,&vex2);
+    vex1-=1;
+    vex2-=1;
+    for (i=0;i<G.vexnum;i++){
+    	dist[i] = G.arcs[vex1][i];
+    	if (G.arcs[vex1][i]!=INFINITY)
+    	   path[i] = vex1;
+        collected[i] = 0;
+	}//初始化path、dist、collected 
+	//找到与起始点相邻权值最小的点
+	while(1){
+	    logo = index(G,dist,collected);
+	    if(logo == -1)
+	        break;
+	    collected[logo] = 1;
+	    for (j=0;j<G.vexnum;j++){
+	    	if (collected[j] == 0&&G.arcs[logo][j]<INFINITY){
+	    		if(G.arcs[logo][j]<0)
+	    		   return ;
+	    		if (dist[logo]+G.arcs[logo][j]<dist[j]){
+	    			dist[j] = dist[logo]+G.arcs[logo][j];
+	    			path[j] = logo;
+				}
+			}
+		}
+    }
+    path[0] = -1;
+    temp = vex2;
+    i=0;
+    printf("%s到%s的最低消费的路线为：",city[vex1].name,city[vex2].name);
+    while(path[temp]!=-1){
+//    	printf("%d<-",temp+1);
+    	New[i] = temp+1;
+		temp = path[temp];
+    	i++;
+	}
+	printf("%s",city[vex1].name);
+//	printf("i = %d\n",i);
+//	printf("new[0] = %d\n",New[0]);
+//	printf("new[1] = %d\n",New[1]);
+	for (j=i-1;j>=0;j--){
+	  for (k=0;k<G.vexnum;k++){
+	      if (city[k].ID == New[j])
+	          printf("->%s",city[k].name);
+	      }
+	}
+	printf("\n最少消费%d元\n",dist[vex2]); 
+}
+
+int index(AdjMatrix G,int dist[],int collected[]){
+	int min,i,j;
+	min = INFINITY;
+	for (i=0;i<G.vexnum;i++){
+		if (collected[i] == 0&&dist[i]<min){
+			min = dist[i];
+			j = i;
+		}
+	}
+	if (min<INFINITY)
+	    return j;
+	else return -1;
+}
+
+void Read(AdjMatrix *G){
+//	printf("start!");
+	FILE *fp;
+	int i,j;
+	fp = fopen("图的存储.txt","rt+");
+	fscanf(fp,"%d%d",&G->vexnum,&G->arcsnum);
+	for (i=0;i<G->vexnum;i++)
+	  fscanf(fp,"%d",&G->vex[i]);
+	for (i=0;i<G->vexnum;i++)
+	  for (j=0;j<G->vexnum;j++)
+	    fscanf(fp,"%d",&G->arcs[i][j]);
+	fclose(fp);
+//    printf("ok!");
+//    printf("%d%d",G->vexnum,G->arcsnum); 
+}
+
+void Write(AdjMatrix *G){
+	FILE *fp;
+	int i,j;
+	fp = fopen("图的存储.txt","wt");
+	fprintf(fp,"%d\n%d\n",G->vexnum,G->arcsnum);
+	for (i=0;i<G->vexnum;i++)
+	  fprintf(fp,"%d\n",G->vex[i]);
+	for (i=0;i<G->vexnum;i++)
+	  for (j=0;j<G->vexnum;j++)
+	    fprintf(fp,"%d\n",G->arcs[i][j]); 
+	fclose(fp); 
+}
+
+int main() {
+	AdjMatrix G;
+	while (1){
+		First(&G);
+	} 
+//	int i,j;
+//	for (i=0;i<G.vexnum;i++){
+//		for (j=0;j<G.vexnum;j++)
+//		    printf("%d",G.arcs[i][j]);
+//	}                     
+	return 0;
+}
