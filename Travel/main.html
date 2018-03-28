@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播图</title>
+    <style>
+        body{
+            background-color: #303030;
+        }
+        img{
+            height:100%;
+            width: 100%;
+
+            position: absolute;
+            filter: alpha(opacity:50);
+            opacity: 0.8;
+        }
+        .input1{
+            margin-left: 128px;
+            margin-top: 130px;
+            position:absolute;
+            font-weight: bold;
+            filter: alpha(opacity:50);
+            opacity: 0.4;
+        }
+        .input1:hover{
+            filter:alpha(opacity:90);
+            opacity:0.7;
+        }
+        .input2:hover{
+            filter:alpha(opacity:90);
+            opacity:0.7;
+        }
+        .input2{
+            margin-left: 404px;
+            margin-top: 130px;
+            position: absolute;
+            font-weight: bold;
+            filter:alpha(opacity:50);
+            opacity:0.4;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var img = document.getElementById('img');
+            var oLeft = document.getElementsByTagName('input')[0];
+            var oRight = document.getElementsByTagName('input')[1];
+            var oText = document.getElementsByTagName('a');
+            var arrImg = ["1.jpg", "2.jpg", "3.jpg"];
+            var num = 0;
+            var timer;
+            timer = setInterval(function () {
+                img.src = arrImg[num];
+                num++;
+                if (num === arrImg.length)
+                    num = 0;
+            }, 2000);
+            img.onmouseover = onc;
+            function onc() {
+                oRight.onclick = function () {
+                    num++;
+                    if (num > arrImg.length - 1)
+                        num = 0;
+                    img.src = arrImg[num];
+                }
+                oLeft.onclick = function () {
+                    if (num === 0)
+                        num = arrImg.length;
+                    num--;
+                    img.src = arrImg[num];
+                    if (num < 0)
+                        num = 0;
+                    img.src = arrImg[num];
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<img   id="img"   src="1.jpg"/>
+<input type="button"  value="<"   class = "input1"/>
+<input type="button"  value=">"   class = "input2"/>
+</body>
+</html>
