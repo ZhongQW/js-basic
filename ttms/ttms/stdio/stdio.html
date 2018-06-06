@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>演出厅</title>
+    <link rel="stylesheet" href="stdio.css">
+    <script src="stdio.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<table  id="customers">
+    <tr>
+        <th>演出厅id</th>
+        <th>演出厅名称</th>
+        <th>可用座位</th>
+        <th>操作</th>
+    </tr>
+</table>
+<input type="button"  id ="btnAdd" value="增加剧目" data-toggle="modal" data-target="#myModal" />
+
+<!-- 模态框 -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h3 class="modal-title" >增加剧目</h3>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body" >
+                <input placeholder="演出厅名字" id ="name"/>
+                <br/>
+                <input placeholder="演出厅的行" id ="row"/>
+                <br/>
+                <input placeholder="演出厅列" id = "col"/>
+                <br/>
+                <span>演出厅介绍：</span>
+                <br/>
+                <textarea id = "intro"></textarea>
+            </div>
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"  id = "btn">确认</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

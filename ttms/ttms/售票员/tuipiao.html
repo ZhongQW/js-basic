@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>退票</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        #background{
+            width: 100%;
+            height: 650px;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        #idT{
+            position: absolute;
+            top: 120px;
+            left: 80px;
+            width: 230px;
+            height: 45px;
+            font-size: 20px;
+            border-radius: 10px;
+            outline: none;
+            transition: width 1000ms;
+            background-color: gainsboro;
+        }
+        #idT:hover{
+            width: 280px;
+        }
+        #server{
+            position: absolute;
+            top: 130px;
+            left: 90px;
+        }
+    </style>
+</head>
+<body>
+<img  id = "background" src="../img/售票.jpg"/>
+<div>
+<input id = "idT" type="text" placeholder="请输入票的id"/>
+<img src="../img/搜索.png" id="server">
+</div>
+<!--搜索出的内容-->
+<div id = ""></div>
+<!--数据库中读取出的内容-->
+<div></div>
+</body>
+<script>
+    window.onload = function(){
+        var btn = document.getElementById("server");
+        var id = document.getElementById("idT");
+        btn.onclick = function(){
+            $.ajax({
+                type: "post",
+                // dataType: "json",
+                url: "http://localhost:8080/tuipiao",
+                data: {
+                    'id':id.value
+                },
+                success: function (res) {
+                    // console.log(result);
+                    if (!res.error) {
+                        alert("查询成功");
+                    }else{
+                        alert(res.result);
+                    }
+                },
+                error: function (res) {
+                    // alert(JSON.stringify(res));
+                    alert("查询失败："+ JSON.stringify(res));
+                }
+            });
+        }
+    }
+</script>
+</html>

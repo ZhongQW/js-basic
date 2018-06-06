@@ -1,0 +1,165 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+/*搜索框*/
+#search{
+    position: relative;
+    top: 36px;
+    left: 240px;
+    width: 200px;
+    height: 30px;
+    /*background-color: #f5e79e;*/
+    transition:  width 3s;
+}
+#search:hover{
+    width: 250px;
+}
+#input{
+    position: relative;
+    width: 200px;
+    transition:  width 3s;
+}
+#input:hover{
+    width: 350px;
+}
+
+#img{
+    position: absolute;
+    right: 0;
+    width: 30px;
+    height: 30px;
+}
+#inputname{
+    position: absolute;
+    top: 40px;
+    left: 100px;
+    color: white;
+    font-size: 20px;
+}
+
+#background{
+    width: 100%;
+    height: 800px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+#p1{
+    font-size: 30px;
+    position: absolute;
+    top: 50px;
+    left: 160px;
+    font-weight: 700;
+    color: #FE6500;
+}
+#p2{
+    font-size: 30px;
+    position: absolute;
+    top: 487px;
+    left: 160px;
+    font-weight: 700;
+    color: #FE6500;
+}
+.cover {
+    /*	height: auto;*/
+    padding: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    position: absolute;
+    top: 120px;
+    left: 160px;
+    text-align: center;
+    overflow: hidden;
+}
+.cover2 {
+    /*	height: auto;*/
+    padding: 20px;
+    padding-left: 0;
+    padding-right: 0;
+    position: absolute;
+    top: 500px;
+    left: 115px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.cover .l-list {
+    top: 0;
+    left: 0;
+    padding: 0;
+    position: absolute;
+}
+
+.l-list .l-li {
+    list-style: none;
+    padding-top: 15px;
+    width: 200px;
+    height: 300px;
+    float: left;
+}
+
+.l-list .l-li:hover {
+    border: 1px solid #888888;
+}
+
+.l-li .l-pic{
+    width: 80%;
+    height: 70%;
+    border: 1px solid black;
+    margin: 0 auto;
+}
+
+.l-li .l-intro {
+    width: 80%;
+    height: 13%;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 40px;
+    color:black;
+}
+
+.l-li .l-buy {
+    width: 80px;
+    height: 10%;
+    border: 1px solid #b2b2b2;
+    color: #b2b2b2;
+    margin-left: 10%;
+    line-height: 30px;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.l-li .l-buy:hover {
+    color: black;
+    font-weight: bold;
+    background-color: #b2b2b2;
+}
+
+.cover .l-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 90%;
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    line-height: 50px;
+    font-size: 30px;
+    color: white;
+    top:125px;
+    display: none;
+    z-index: 9;
+}
+
+.cover .l-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.cover:hover .l-btn{display: block;}
+
+.l-left {
+    left: 0;
+}
+
+.l-right {
+    right: 0;
+}

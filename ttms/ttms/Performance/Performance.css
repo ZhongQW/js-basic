@@ -1,0 +1,20 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+#time1{
+    color: #5FB878;
+    font-size: 25px;
+    position: relative;
+    top: 2px;
+    left: 30px;
+    margin: 0;
+}
+.time1{
+    color: #5FB878;
+    font-size: 25px;
+    position: relative;
+    top: 0;
+    left: 30px;
+    margin: 0;
+}

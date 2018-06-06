@@ -1,0 +1,59 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style-type:  none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background:url("../img/daohang.jpg");
+    position: relative;
+    top: 0;
+    height: 10%;
+    width: 100%;
+}
+ul li {
+    float: left;
+    cursor: pointer;
+}
+ul li a{
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+li a:hover{
+    background-color:#5FB878;
+    text-decoration:underline;
+    color: saddlebrown;
+    font-weight: 500;
+}
+li a:visited{
+    background-color:#b2b2b2;
+    text-decoration: none;
+    color: white;
+}
+
+li a:active {
+    background-color: #4CAF50;
+    text-decoration: none;
+}
+.zhuxiao{
+    position: absolute;
+    right: 20px;
+}
+#shoupiao {
+    position:absolute;
+    width:100%;
+    top:0;
+    border:none;
+    height:790px;
+}
+#div{
+    position:relative;
+    height:75%;
+    top:0;
+    border:none;
+}

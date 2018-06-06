@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>剧目</title>
+    <link rel="stylesheet" href="play.css">
+    <script src="plays.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<table id="table">
+    <tr>
+        <th>剧目名字</th>
+        <th>剧目类型</th>
+        <th>语言</th>
+        <th>时长</th>
+        <th>票价</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    <!--<tr>-->
+        <!--<td>哆啦A梦</td>-->
+        <!--<td>日漫</td>-->
+        <!--<td>语言</td>-->
+        <!--<td>120min</td>-->
+        <!--<td>25</td>-->
+        <!--<td>正在热映</td>-->
+        <!--<td>-->
+            <!--<a>热映</a>-->
+            <!--<a>上线</a>-->
+            <!--<a>下线</a>-->
+            <!--<a>删除</a>-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td>哆啦A梦</td>-->
+        <!--<td>日漫</td>-->
+        <!--<td>语言</td>-->
+        <!--<td>120min</td>-->
+        <!--<td>25</td>-->
+        <!--<td>正在热映</td>-->
+        <!--<td>-->
+            <!--<a>热映</a>-->
+            <!--<a>上线</a>-->
+            <!--<a>下线</a>-->
+            <!--<a>删除</a>-->
+        <!--</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td>哆啦A梦</td>-->
+        <!--<td>日漫</td>-->
+        <!--<td>语言</td>-->
+        <!--<td>120min</td>-->
+        <!--<td>25</td>-->
+        <!--<td>正在热映</td>-->
+        <!--<td>-->
+            <!--<a>热映</a>-->
+            <!--<a>上线</a>-->
+            <!--<a>下线</a>-->
+            <!--<a>删除</a>-->
+        <!--</td>-->
+    <!--</tr>-->
+</table>
+<input type="button"  id = "btn" value="增加剧目" data-toggle="modal" data-target="#myModal" />
+
+<!-- 模态框 -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h3 class="modal-title" >增加剧目</h3>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body" >
+                <from  id = "from" >
+                    <select name="select" id = "lang">
+                        <option value = "国语">国语</option>
+                        <option value = "粤语">粤语</option>
+                        <option value = "英语">英语</option>
+                        <option value = "韩语">韩语</option>
+                        <option value = "日语">日语</option>
+                    </select>
+                <br>
+                <select name="select" id = "select">
+                    <option value = "动作片">动作片</option>
+                    <option value = "喜剧片">喜剧片</option>
+                    <option value = "恐怖片">恐怖片</option>
+                    <option value = "家庭片">家庭片</option>
+                </select>
+                <input class="input-group input-group-lg" id="name" type="text" placeholder="name"/>
+                <textarea placeholder="introduction" id="introduction" style="width: 500px;height: 150px;resize: none"></textarea>
+                <p>请选择剧目图片</p><input type="file" id="xdaTanFileImg" onchange="getFile()"/>
+                <input class="input-group input-group-lg" id="length" type="text" placeholder="length"/>
+                <input class="input-group input-group-lg" id="price" type="text" placeholder="price"/>
+                </from>
+         </div>
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"  id = "btnAdd">确认</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<!--<script type="text/javascript">-->
+    <!--//判断浏览器是否支持FileReader接口-->
+    <!--if (typeof FileReader == 'undefined') {-->
+        <!--document.getElementById("xmTanDiv").InnerHTML = "<h1>当前浏览器不支持FileReader接口</h1>";-->
+        <!--//使选择控件不可操作-->
+        <!--document.getElementById("xdaTanFileImg").setAttribute("disabled", "disabled");-->
+    <!--}-->
+
+    <!--//选择图片，马上预览-->
+    <!--function xmTanUploadImg(obj) {-->
+        <!--var file = obj.files[0];-->
+
+        <!--console.log(obj);console.log(file);-->
+        <!--console.log("file.size = " + file.size);  //file.size 单位为byte-->
+
+        <!--var reader = new FileReader();-->
+
+        <!--//读取文件过程方法-->
+        <!--reader.onloadstart = function (e) {-->
+            <!--console.log("开始读取....");-->
+        <!--}-->
+        <!--reader.onprogress = function (e) {-->
+            <!--console.log("正在读取中....");-->
+        <!--}-->
+        <!--reader.onabort = function (e) {-->
+            <!--console.log("中断读取....");-->
+        <!--}-->
+        <!--reader.onerror = function (e) {-->
+            <!--console.log("读取异常....");-->
+        <!--}-->
+        <!--reader.onload = function (e) {-->
+            <!--console.log("成功读取....");-->
+
+            <!--var img = document.getElementById("xmTanImg");-->
+            <!--img.src = e.target.result;-->
+            <!--//或者 img.src = this.result;  //e.target == this-->
+        <!--}-->
+
+        <!--reader.readAsDataURL(file.name);-->
+    <!--}-->
+<!--</script>-->
+</html>

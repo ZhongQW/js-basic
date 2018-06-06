@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员</title>
+    <link  rel="stylesheet" href="main-管理员.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+
+            function moren(){
+                document.getElementById("hello").click();
+            }
+
+
+    </script>
+</head>
+<body onload = "moren()">
+<div id = "ul">
+    <ul>
+        <li style="color: #999999;font-size: 30px;position: relative;top:5px">番茄影视</li>
+        <li><a  href="../palys/play.html" target="shoupiao" id="hello">剧目</a></li>
+        <li><a  href="../Performance/Performance.html" target="shoupiao">演出计划</a></li>
+        <li><a  href="../stdio/stdio.html" target="shoupiao">演出厅</a></li>
+        <li><a href="../seat/seat.html" target="shoupiao">座位</a></li>
+        <li class="zhuxiao"><a href="../login-register/join-in.html">注销</a></li>
+    </ul>
+</div>
+<div id = "div">
+    <iframe id="shoupiao"  name="shoupiao"></iframe>
+</div>
+</body>
+</html>

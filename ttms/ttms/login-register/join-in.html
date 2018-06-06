@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆/注册</title>
+    <link rel="stylesheet" href="join-css.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="join-in.js"></script>
+</head>
+<body style="overflow:scroll; overflow-x:hidden;">
+<img  src="../img/北京4.jpg" id = "background"/>
+<img src="../img/logo.jpg" id = "logo"/>
+<p id = "name">番茄影院</p>
+<div id = "tomato">
+    <p>关于影院：</p>
+    <p>(1)内部采用经典流行的色彩元素进行装修，只要踏进影院，时尚、浪漫的气息即刻映入你的眼帘;</p>
+    <p>(2)影院拥有9个专业电影厅，设有1000多个座位，最小的情侣影厅可以容纳60人，最大的影厅则拥有180个座位</p>
+    <p>(3)朋友们，赶紧步入电影的殿堂，享受那份来自电影的心灵悸动，感受不一样的文化碰撞</p>
+</div>
+
+<!--登陆-->
+<from id = "fromD"  name="fromD" >
+<p style="font-size: 40px;color: cadetblue">用户登录</p>
+<div id = "div2" >
+<select id="selectD">
+    <option value ="售票员">售票员</option>
+    <option value="管理员">管理员</option>
+</select>
+<input type="text" id = "nameD" placeholder="name" name="userD"/>
+    <br/>
+    <br/>
+<input type="password" id = "passwordD" placeholder="password" name="passwordD"/>
+<label id = "lable">
+    <input type="checkbox" />
+    <p href="javascript:;" style="font-size: 13px">下次自动登录</p>
+</label>
+    <a href="javascript:;">忘记密码</a>
+<div id = "div3">
+    <input type="button" id="buttonD" class = "input1" value="登录" />
+</div>
+<div id = "div4">
+    <p>还没有账号？</p><a href="javascript:;" data-toggle="modal" data-target="#myModal">立即注册</a>
+</div>
+    <!--<img src="../img/3.gif" />-->
+</div>
+</from>
+
+<!--注册-->
+<div class="modal fade"  tabindex="-1" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id = "model-zhuce">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    注册账号
+                </h4>
+            </div>
+            <from id = "from2"  name="fromZ" >
+            <div class="modal-body">
+                    <div class="input-group input-group-lg">
+                        <input type="text" id = "nameZ" class="form-control name" name = "nameZ"   placeholder="name">
+                    </div>
+                    <br/>
+                    <div class="input-group input-group-lg">
+                        <input type="password" class="form-control password" id = "passwordZ"  name= "passwordZ"  placeholder="password">
+                    </div>
+                    <br/>
+                    <div class="input-group input-group-lg">
+                        <span style="font-size: 15px">身份选择:</span>
+                        <select id = "selectZ">
+                        <option value ="售票员">售票员</option>
+                        <option value="管理员">管理员</option>
+                        </select>
+                    </div>
+                    <br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"  id = "buttonZ">
+                    确认
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                </button>
+            </div>
+            </from>
+        </div><!-- /.modal-content -->
+    </div>
+    </div><!-- /.modal -->
+<div id = "footer">
+    <span>
+        <a style="position: absolute;left: 470px;top: 30px;">新手教程</a>
+        <a style="position: absolute;left: 620px;top: 30px;">意见反馈</a>
+        <a style="position: absolute;left: 770px;top: 30px;">投诉举报</a>
+    </span>
+    <p>©2018Baidu  使用ttms前必读  TTMS经验协议  作者创作作品协议  京ICP证030173号-1 京网文【2013】0934-983号</p>
+</div>
+ <script>
+    $('.ck-slide').ckSlide({
+        autoPlay:true
+        /*dir:"x"*/
+    });
+</script>
+</body>
+</html>

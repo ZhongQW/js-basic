@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>演出计划</title>
+    <link rel="stylesheet" href="schedule.css">
+    <script src="schedlue.js"></script>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<p id = "title">演出计划</p>
+<div class="div1">
+    <div class="cover">
+        <p id = "name">第一演出厅</p>
+        <input type="button" id = "btnP" value="增加" data-toggle="modal" data-target="#myModal" />
+    </div>
+    <div class = "schedule">
+        <img src ="../img/logo.jpg"/>
+        <p class="name">剧目名称</p>
+        <p class="time">播出时间</p>
+    </div>
+</div>
+
+<!-- 模态框 -->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- 模态框头部 -->
+            <div class="modal-header">
+                <h3 class="modal-title" >添加一个剧目</h3>
+            </div>
+
+            <!-- 模态框主体 -->
+            <div class="modal-body" >
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+                </div>
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+                </div>
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+                </div>
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+                </div>
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+                </div>
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+                </div>
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+               </div>
+                <div class = "add_play">
+                    <button class="play_name" onclick="select()">剧目名称</button>
+                    <span class="play_time">时长</span>
+                </div>
+                <div id = "selected">
+                    <span>剧目：</span>
+                    <span>演出厅：</span>
+                    <span>开始时间：</span>
+                </div>
+           </div>
+            <!-- 模态框底部 -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal"  id = "btnAdd">确认</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

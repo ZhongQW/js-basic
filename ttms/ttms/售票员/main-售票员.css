@@ -1,0 +1,60 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style-type:  none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: antiquewhite;
+    position: relative;
+    top: 0;
+    height: 10%;
+    width: 100%;
+}
+ul li {
+    float: left;
+    cursor: pointer;
+}
+ul li a{
+    display: block;
+    color: rosybrown;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+li a:hover:not(.active) {
+    background-color:yellowgreen;
+    text-decoration: none;
+}
+.active {
+    background-color: #4CAF50;
+    text-decoration: none;
+}
+.zhuxiao{
+    position: absolute;
+    right: 20px;
+}
+#shoupiao {
+    position:absolute;
+    width:100%;
+    top:0;
+    border:none;
+    height:790px;
+}
+#div{
+    position:relative;
+    height:75%;
+    top:0;
+    border:none;
+}
+#select{
+    position: relative;
+    top:15px;
+    width: 100px;
+    height: 30px;
+    left: 1000px;
+    font-size: 15px;
+}

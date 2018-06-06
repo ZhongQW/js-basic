@@ -1,0 +1,102 @@
+body{
+    padding: 0;
+    margin: 0;
+}
+#title{
+    font-size: 30px;
+    text-align: center;
+    position: relative;
+    top: 18px;
+}
+
+.div1{
+    width: 100%;
+    height: 200px;
+    border: solid #abef98;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    position: relative;
+}
+.div1 .cover {
+    width: 100px;
+    height:100%;
+    float: left;
+}
+#name{
+    font-size: 25px;
+    position: absolute;
+    width: 40px;
+    float: left;
+}
+.div1 input{
+    position: absolute;
+    top:168px;
+}
+.schedule{
+    position: relative;
+    float: left;
+    width: 100px;
+    height: 200px;
+    margin-right: 10px;
+}
+
+.schedule img{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+.name{
+    position: absolute;
+    top: 130px;
+    font-size: 19px;
+}
+.time{
+    position: absolute;
+    top: 158px;
+    font-size: 19px;
+}
+
+/*模态框*/
+.modal-body{
+    position: relative;
+    width: 600px;
+    height: 300px;
+}
+#start_time{
+    position: absolute;
+    top: 275px;
+    left: 130px;
+}
+#end_time{
+    position: absolute;
+    left: 320px;
+    top: 275px;
+}
+#yy{
+    position: absolute;
+    top: 275px;
+    left: 300px;
+}
+.add_play{
+    float: left;
+    width:80px;
+    height: 60px;
+    margin-right: 20px;
+}
+.play_name{
+    width: 80px;
+    height: 40px;
+    background-color: #b9def0;
+}
+.play_select{
+    background-color: #5FB878;
+}
+.play_time{
+    display: block;
+}
+#selected{
+    width:
+}
+
+
+
